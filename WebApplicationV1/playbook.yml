@@ -1,3 +1,4 @@
+---
 - name: Deloy a web app
 - hosts: all
 - tasks:
