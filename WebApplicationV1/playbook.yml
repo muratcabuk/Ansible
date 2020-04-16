@@ -12,14 +12,6 @@
         name: 'mysql-server'
         state: present
 
-    - name: create MySQL configuration file
-      copy:
-        content: |
-          [client]
-          user=mysqluser
-          password="@targ8et"
-        dest: "~/.my.cnf"
-
     - name: Start MySQL Service
       service:
         name: mysql
