@@ -9,7 +9,7 @@
 
     - name: Install MySQL database
       apt:
-        name: 'mysql'
+        name: 'mysql-server'
         state: present
 
     - name: create MySQL configuration file
