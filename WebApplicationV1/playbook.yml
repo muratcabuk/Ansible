@@ -4,7 +4,7 @@
   tasks:
     - name: install requirements
       apt:
-        name: ['epel-releae','python','python3','python-devel']
+        name: ['epel-release','python','python3','python-devel']
         state: present
 
     - name: Install MySQL community repository
