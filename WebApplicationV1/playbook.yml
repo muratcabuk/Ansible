@@ -1,5 +1,5 @@
 - name: Deloy a web app
-- hosts: webserver, dbserver # veya all yazaılabilir 
+- hosts: all # veya all yazaılabilir 
 - tasks:                     #yada iki severa inventory de [] tagarı arasında group adı yazılır ve burada kullanılabiir.
     - name: ping             # yada pattern kukllanılarak ehildcard vb regular expression ile inventoryler yakalanabilir.
       apt:
