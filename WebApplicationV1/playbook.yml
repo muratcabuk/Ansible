@@ -31,11 +31,6 @@
         name: 'python-mysqldb'
         state: present
 
-    - name: Install pip
-      apt:
-        name: "python-pip"
-        state: present
-
     - name: Install required Python libraries
       pip:
         name: ['flask','flask-mysql']
