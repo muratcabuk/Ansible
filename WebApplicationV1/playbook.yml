@@ -16,7 +16,7 @@
       copy:
         content: |
           [client]
-          user=root
+          user=mysqluser
           password="@targ8et"
         dest: "~/.my.cnf"
 
