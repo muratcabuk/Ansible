@@ -17,7 +17,8 @@
         content: |
           [client]
           user=root
-          password="Drop-27!"
+          password=Drop-27!
+          host:localhost
         dest: "~/.my.cnf"
 
     - name: Start MySQL Service
