@@ -2,8 +2,8 @@
 # https://github.com/ansible/ansible/issues/47927#issuecomment-438351341
 - name: Deploy a web application
   hosts: webserver,dbserver
-  become: yes
-  become_user: root
+  #become: yes
+  #become_user: root
   tasks:
     - name: install the 'Development tools' package group
       apt:

@@ -1,2 +1,2 @@
-webserver ansible_host=10.114.0.2  ansible_ssh_private_key_file=./keys/private.ppk
-dbserver ansible_host=10.114.0.3 ansible_ssh_private_key_file=./keys/private.ppk
+webserver ansible_host=10.114.0.2  ansible_ssh_private_key_file=~/.ssh/privatebasic
+dbserver ansible_host=10.114.0.3 ansible_ssh_private_key_file=~/.ssh/privatebasic
