@@ -1,7 +1,7 @@
 ---
 - name: Deloy a web app
-- hosts: all
-- tasks:
+  hosts: all
+  tasks:
     - name: install requirements
       apt:
         name: "{{ item }}"
