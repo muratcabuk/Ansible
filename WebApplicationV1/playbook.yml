@@ -45,6 +45,7 @@
 
     - name: Create Database user
       mysql_user:
+        login_unix_socket: /var/run/mysqld/mysqld.sock
         name: db_user
         password: Passw0rd
         priv: '*.*:ALL'
