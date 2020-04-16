@@ -14,11 +14,8 @@
 
     - name: Install MySQL database
       apt:
-        name: "{{ item }}"
+        name: 'mysql'
         state: present
-      with_items:
-        - "mysql-server"
-        - "mysql-devel"
 
     - name: create MySQL configuration file
       copy:
@@ -36,7 +33,7 @@
 
     - name: Install mysql-python package
       apt:
-        name: MySQL-python
+        name: 'python-mysqldb'
         state: present
 
     - name: Install pip
@@ -46,11 +43,8 @@
 
     - name: Install required Python libraries
       pip:
-        name: "{{ item }}"
+        name: ['flask','flask-mysql']
         state: present
-      with_items:
-        - "flask"
-        - "flask-mysql"
 
     - name: Create Application Database
       mysql_db:
