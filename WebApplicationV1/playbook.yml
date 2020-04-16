@@ -12,13 +12,13 @@
         name: 'mysql-server'
         state: present
 
-#    - name: create MySQL configuration file
-#      copy:
-#        content: |
-#          [client]
-#          user=root
-#          password="Drop-27!"
-#        dest: "~/.my.cnf"
+    - name: create MySQL configuration file
+      copy:
+        content: |
+          [client]
+          user=root
+          password="Drop-27!"
+        dest: "~/.my.cnf"
 
     - name: Start MySQL Service
       service:
