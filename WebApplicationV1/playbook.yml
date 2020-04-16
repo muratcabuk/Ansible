@@ -4,7 +4,7 @@
   tasks:
     - name: install requirements
       apt:
-        name: ['python','python3, python-dev']
+        name: ['python','python3-pip', 'python3-dev','nginx']
         state: present
 
     - name: Install MySQL community repository
