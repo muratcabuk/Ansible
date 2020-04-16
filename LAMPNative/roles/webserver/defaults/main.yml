@@ -1,5 +1,0 @@
--
-    apache_http_port: 80
-    apache_doc_root: /var/www/html
-    apache_user: apache
-    apache_group: apache
