@@ -1,0 +1,4 @@
+-
+    mariadb_port: 3306
+    mariadb_user: maria
+    mariadb_group: maria
