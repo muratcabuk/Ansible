@@ -18,7 +18,7 @@
           [client]
           user=root
           password="@targ8et"
-        dest: "/etc/.my.cnf"
+        dest: "~/.my.cnf"
 
     - name: Start MySQL Service
       service:
