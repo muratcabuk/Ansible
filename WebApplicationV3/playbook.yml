@@ -6,7 +6,7 @@
   
 
 - name: Deloy a Web Server
-  hosts: dbserver, webserver
+  hosts: webserver
   roles:
     - webrole
     - pythonrole
