@@ -1,2 +1,15 @@
 ---
-# tasks file for webrole
+- name: Install required Python libraries
+  pip:
+    name: ['flask','flask-mysql']
+    state: present
+
+
+- name: Copy source code
+  copy:
+    src: ./templates/app.py.j2
+    dest: /opt/app.py
+
+- name: Start web server
+  shell: FLASK_APP=/opt/app.py flask run --host=0.0.0.0 -p 3000
+

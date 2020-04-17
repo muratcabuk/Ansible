@@ -1,0 +1,4 @@
+- name: install requirements
+  apt:
+    name: ['python','python3-pip', 'python3-dev','nginx', 'virtualenv','python-setuptools', 'python3-venv']
+    state: present
