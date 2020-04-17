@@ -1,0 +1,8 @@
+---
+    handlers:
+        - name: Done
+          async_status:
+            jid: "{{ my_task.ansible_job_id }}"
+          register: my_task_result
+          debug:
+            msg: my_task_result

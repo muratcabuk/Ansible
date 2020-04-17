@@ -1,0 +1,15 @@
+---
+tasks:
+  - name: install requirements 1
+    apt:
+      name: ['python','python3-pip', 'python3-dev','nginx']
+      state: present
+      notify: Done
+
+  - name: install requirements 2
+    apt:
+      name: [ 'virtualenv','python-setuptools', 'python3-venv']
+      state: present
+      notify: Done
+      
+# handler handlers klasöründe
