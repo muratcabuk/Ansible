@@ -7,4 +7,5 @@
   
 - name: Debug Message
   debug:
-    var: my_task_result.stdout_lines
+    msg: 'merhaba'
+#    var: my_task_result.stdout_lines
