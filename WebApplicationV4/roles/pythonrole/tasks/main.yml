@@ -1,14 +1,8 @@
 ---
-- name : flsush handlers
-  meta: flush_handlers
-
-
 - name: install requirements 1
   apt:
     name: ['python','python3-pip', 'python3-dev','nginx']
     state: present
-
-
 
 - name: install requirements 2
   apt:
@@ -18,10 +12,20 @@
 
 - name: Wait and notify handler
   shell:
-    cmd: sleep 5
-  # async: 120
-  # poll: 0
+    cmd: sleep 15
+  async: 120
+  poll: 0
   register: my_task
   notify: Done Handler
+
+
+
+
+- name: 'YUM - check on async task'
+  async_status:
+    jid: "{{ my_task.ansible_job_id }}"
+  register: job_result
+  until: job_result.finished
+  retries: 5
 
 # handler handlers klasöründe
