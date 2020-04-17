@@ -13,7 +13,8 @@
 
 
 - name: Wait and notify handler
-  seconds: 30
+  pause:
+    seconds: 30
   async: 120
   poll: 0
   notify: Done Handler
