@@ -6,7 +6,7 @@
 
 
 - name: Copy source code
-  copy:
+  template:
     src: ./templates/app.py.j2
     dest: /opt/app.py
 
