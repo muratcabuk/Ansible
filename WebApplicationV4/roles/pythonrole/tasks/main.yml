@@ -3,6 +3,7 @@
   apt:
     name: ['python','python3-pip', 'python3-dev','nginx']
     state: present
+  pause: 30
   async: 120
   poll: 0
   notify: Done Handler
@@ -12,6 +13,7 @@
   apt:
     name: [ 'virtualenv','python-setuptools', 'python3-venv']
     state: present
+  pause: 30
   async: 120
   poll: 0
   notify: Done Handler
