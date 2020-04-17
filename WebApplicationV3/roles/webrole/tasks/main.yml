@@ -6,8 +6,10 @@
 
 
 - name: Copy source code from template
+  shell:
+    cmd: rm /opt/app.py 
   template:
-    src: /templates/app.py.j2
+    src: ./templates/app.py.j2
     dest: /opt/app.py
 
 - name: Start web server
