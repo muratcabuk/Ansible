@@ -5,9 +5,10 @@
     state: present
 #birden fazla action çalıştırabilmek için block kullanılır
 - block:
-  - name: Copy source code from template
+  - name: Remove App.py if it exists 
     shell:
       cmd: rm /opt/app.py 
+  - name: Copy source code from template
     template:
       src: ./templates/app.py.j2
       dest: /opt/app.py
