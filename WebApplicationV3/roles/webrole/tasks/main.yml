@@ -15,17 +15,18 @@
       owner: root
       group: root
       mode: 644
+    delegate_to: 127.0.0.1
   rescue:
     - debug:
         msg: 'I caught an error, can do stuff here to fix it, :-)'
 
-- hosts: 127.0.0.1
-  connection: local
-  tasks:
-    - name: copy local
-      template:
-        src: ./templates/app.py.j2
-        dest: ./templates/app.py
+# - hosts: 127.0.0.1
+#   connection: local
+#   tasks:
+#     - name: copy local
+#       template:
+#         src: ./templates/app.py.j2
+#         dest: ./templates/app.py
 
 - name: Start web server
   shell: FLASK_APP=/opt/app.py flask run --host=0.0.0.0 -p 3000
