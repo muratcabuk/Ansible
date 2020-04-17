@@ -13,6 +13,7 @@
 
 
 - name: Wait and notify handler
+  meta: flush_handlers
   shell:
     cmd: sleep 5
   # async: 120
