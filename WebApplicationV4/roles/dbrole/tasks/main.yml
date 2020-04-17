@@ -1,41 +1,40 @@
 ---
-tasks:
-  - name: Install MySQL database
-    apt:
-      name: 'mysql-server'
-      state: present
-  # bu kısım için ninja template de kullanılabilir
-  - name: create MySQL configuration file
-    copy:
-      content: |
-          [client]
-          user=root
-          password=Drop-27!
-          host=localhost
-      dest: "~/.my.cnf"
+- name: Install MySQL database
+  apt:
+    name: 'mysql-server'
+    state: present
+# bu kısım için ninja template de kullanılabilir
+- name: create MySQL configuration file
+  copy:
+    content: |
+        [client]
+        user=root
+        password=Drop-27!
+        host=localhost
+    dest: "~/.my.cnf"
 
-  - name: Start MySQL Service
-    service:
-      name: mysql
-      state: started
-      enabled: yes
+- name: Start MySQL Service
+  service:
+    name: mysql
+    state: started
+    enabled: yes
 
-  - name: Install mysql-python package
-    apt:
-      name: 'python-mysqldb'
-      state: present
+- name: Install mysql-python package
+  apt:
+    name: 'python-mysqldb'
+    state: present
 
-  - name: Create Application Database
-    mysql_db:
-      login_unix_socket: '{{ mysql_socket }}'
-      name: '{{ db_name }}'
-      state: present
+- name: Create Application Database
+  mysql_db:
+    login_unix_socket: '{{ mysql_socket }}'
+    name: '{{ db_name }}'
+    state: present
 
-  - name: Create Database user
-    mysql_user:
-      login_unix_socket: '{{ mysql_socket }}'
-      name: '{{ db_user_name }}'
-      password:  '{{ db_user_password }}'
-  #    priv: '*.*:ALL'
-      priv: "GRANT ALL PRIVILEGES ON *.* TO '{{ db_user_name }}'@'{{ web_host }}' IDENTIFIED BY '{{ db_user_password }}'  WITH GRANT OPTION;"
-      state: present
+- name: Create Database user
+  mysql_user:
+    login_unix_socket: '{{ mysql_socket }}'
+    name: '{{ db_user_name }}'
+    password:  '{{ db_user_password }}'
+#    priv: '*.*:ALL'
+    priv: "GRANT ALL PRIVILEGES ON *.* TO '{{ db_user_name }}'@'{{ web_host }}' IDENTIFIED BY '{{ db_user_password }}'  WITH GRANT OPTION;"
+    state: present
