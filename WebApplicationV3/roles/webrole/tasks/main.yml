@@ -3,14 +3,17 @@
   pip:
     name: ['flask','flask-mysql']
     state: present
-
-
-- name: Copy source code from template
-  shell:
-    cmd: rm /opt/app.py 
-  template:
-    src: ./templates/app.py.j2
-    dest: /opt/app.py
+#birden fazla action çalıştırabilmek için block kullanılır
+- block:
+  - name: Copy source code from template
+    shell:
+      cmd: rm /opt/app.py 
+    template:
+      src: ./templates/app.py.j2
+      dest: /opt/app.py
+  rescue:
+    - debug:
+        msg: 'I caught an error, can do stuff here to fix it, :-)'
 
 - name: Start web server
   shell: FLASK_APP=/opt/app.py flask run --host=0.0.0.0 -p 3000
