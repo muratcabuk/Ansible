@@ -8,7 +8,9 @@
   - name: Remove App.py if it exists 
     shell:
       cmd: '[ -e /opt/app.py ] && rm /opt/app.py' # bu komut yerine absend kullanamk daha doğru olacaktır. test etmek için yazıldı
-    ignore_errors: true
+    register: swap_exists
+    # ignore_errors: true
+    failed_when: swap_exists.rc != 1 and swap_exists.rc != 0
   - name: Copy source code from template
     template:
       src: ./templates/app.py.j2
