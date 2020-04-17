@@ -8,8 +8,8 @@
 - name: Deloy a Web Server
   hosts: webserver
   roles:
-    - webrole
     - pythonrole
+    - webrole
 
 
 
