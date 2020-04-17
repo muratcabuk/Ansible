@@ -1,4 +1,8 @@
 ---
+- name : flsush handlers
+  meta: flush_handlers
+
+
 - name: install requirements 1
   apt:
     name: ['python','python3-pip', 'python3-dev','nginx']
@@ -13,7 +17,6 @@
 
 
 - name: Wait and notify handler
-  meta: flush_handlers
   shell:
     cmd: sleep 5
   # async: 120
