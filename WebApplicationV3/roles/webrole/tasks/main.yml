@@ -8,6 +8,7 @@
   - name: Remove App.py if it exists 
     shell:
       cmd: '[ -e /opt/app.py ] && rm /opt/app.py' # bu komut yerine absend kullanamk daha doğru olacaktır. test etmek için yazıldı
+    ignore_errors: true
   - name: Copy source code from template
     template:
       src: ./templates/app.py.j2
