@@ -12,20 +12,17 @@
 
 - name: Wait and notify handler
   shell:
-    cmd: sleep 15
-  async: 120
+    cmd: sleep 3
+  async: 20
   poll: 0
   register: my_task
   notify: Done Handler
 
-
-
-
-- name: 'YUM - check on async task'
+- name: Check on async task
   async_status:
     jid: "{{ my_task.ansible_job_id }}"
   register: job_result
   until: job_result.finished
-  retries: 5
+  retries: 10
 
 # handler handlers klasöründe
