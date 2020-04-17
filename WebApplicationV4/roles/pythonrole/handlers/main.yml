@@ -7,4 +7,4 @@
   
 - name: Debug Message
   debug:
-    msg: my_task_result
+    var: my_task_result.stdout_lines
