@@ -12,6 +12,9 @@
     template:
       src: ./templates/app.py.j2
       dest: /opt/app.py
+      owner: root
+      group: root
+      mode: 644
   rescue:
     - debug:
         msg: 'I caught an error, can do stuff here to fix it, :-)'
