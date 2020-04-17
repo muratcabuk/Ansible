@@ -5,7 +5,7 @@
     state: present
 
 
-- name: Copy source code
+- name: Copy source code from template
   template:
     src: ./templates/app.py.j2
     dest: /opt/app.py
