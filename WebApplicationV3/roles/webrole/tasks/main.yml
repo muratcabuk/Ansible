@@ -7,15 +7,15 @@
 - block:
   - name: Remove App.py if it exists 
     shell:
-      cmd: rm /opt/app.py 
+      cmd: rm /opt/app.py # bu komut yerine absend kullanamk daha doğru olacaktır. test etmek için yazıldı
   - name: Copy source code from template
     template:
       src: ./templates/app.py.j2
-      dest: /opt/app.py
+      dest: ~/opt/app.py
       owner: root
       group: root
       mode: 644
-    delegate_to: 127.0.0.1
+#    delegate_to: 127.0.0.1  # ilgili komutu farklı bir host ta yönlendirmek için kullanılır.
   rescue:
     - debug:
         msg: 'I caught an error, can do stuff here to fix it, :-)'
