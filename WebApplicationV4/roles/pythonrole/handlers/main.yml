@@ -1,6 +1,6 @@
 ---
 - name: Done Handler
-  debug:
+#  debug:
 #    msg: "merhaba nasılsın"
   async_status:
     jid: "{{ my_task.ansible_job_id }}"
