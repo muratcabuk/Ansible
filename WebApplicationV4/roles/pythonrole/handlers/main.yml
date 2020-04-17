@@ -1,13 +1,15 @@
 ---
 - name: Done Handler
+  debug:
+    msg: my_task
 #  debug:
 #    msg: "merhaba nasılsın"
-  async_status:
-    jid: "{{ my_task.ansible_job_id }}"
-  register: my_task_result
-  notify: Debug Message
+  # async_status:
+  #   jid: "{{ my_task.ansible_job_id }}"
+  # register: my_task_result
+  #notify: Debug Message
   
-- name: Debug Message
-  debug:
-    msg: my_task_result
+#- name: Debug Message
+#  debug:
+#    msg: my_task_result
 #   var: my_task_result.stdout_lines

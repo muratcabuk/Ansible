@@ -14,7 +14,7 @@
 
 - name: Wait and notify handler
   shell:
-    cmd: sleep 30
+    cmd: sleep 15
   async: 120
   poll: 0
   register: my_task
