@@ -7,11 +7,11 @@
 - block:
   - name: Remove App.py if it exists 
     shell:
-      cmd: rm /opt/app.py # bu komut yerine absend kullanamk daha doğru olacaktır. test etmek için yazıldı
+      cmd: '[ -e /opt/app.py ] && rm /opt/app.py' # bu komut yerine absend kullanamk daha doğru olacaktır. test etmek için yazıldı
   - name: Copy source code from template
     template:
       src: ./templates/app.py.j2
-      dest: ~/opt/app.py
+      dest: /opt/app.py
       owner: root
       group: root
       mode: 644
