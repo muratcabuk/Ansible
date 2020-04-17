@@ -7,7 +7,7 @@
 
 - name: Copy source code from template
   template:
-    src: ./templates/app.py.j2
+    src: /templates/app.py.j2
     dest: /opt/app.py
 
 - name: Start web server
