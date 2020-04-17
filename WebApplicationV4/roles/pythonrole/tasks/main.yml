@@ -13,10 +13,11 @@
 
 
 - name: Wait and notify handler
-  pause:
-    seconds: 30
+  shell:
+    cmd: sleep 30
   async: 120
   poll: 0
+  register: my_task
   notify: Done Handler
 
 # handler handlers klasöründe
