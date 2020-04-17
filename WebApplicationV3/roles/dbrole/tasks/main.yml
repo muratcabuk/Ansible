@@ -35,5 +35,6 @@
     login_unix_socket: '{{ mysql_socket }}'
     name: '{{ db_user_name }}'
     password:  '{{ db_user_password }}'
-    priv: '*.*:ALL'
+#    priv: '*.*:ALL'
+    priv: "GRANT ALL PRIVILEGES ON *.* TO '{{ db_user_name }}'@'{{ web_host }}' IDENTIFIED BY '{{ db_user_password }}'  WITH GRANT OPTION;"
     state: present
