@@ -1,5 +1,21 @@
 # Ansible
 
+- [WebApp 1 - Basic](WebApplicaitonV1)
+- [WebApp 2 - Seperate Servers](WebApplicaitonV2)
+- [WebApp 3 - Roles](WebApplicaitonV3)
+- [WebApp 4 - Async, Poll and Little Handler](WebApplicaitonV4)
+- [WebApp 5 - Strategies (plugin)](WebApplicaitonV5)
+- [WebApp 6 - Error Handling](WebApplicaitonV6)
+- [WebApp 7 - Jinja2 Templating](WebApplicaitonV7)
+- [WebApp 8 - Lookups (plugin)](WebApplicaitonV8)
+- [WebApp 9 - Vault](WebApplicaitonV9)
+- [WebApp 10 - Dynamic Inventry](WebApplicaitonV10)
+- [WebApp 11 - Custom Module and Plugin](WebApplicaitonV11)
+- [WebApp 12 - Meta](WebApplicaitonV13)
+- [WebApp 13 - VirtualBox, VmWare and Vagrant](WebApplicaitonV14)
+- [WebApp 14 - Azure and Digital Ocean](WebApplicaitonV15)
+
+
 ## Ansible Tutorial
 
 - https://docs.ansible.com/ansible/latest/user_guide/playbooks_best_practices.html

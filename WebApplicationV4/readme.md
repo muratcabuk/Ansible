@@ -1,4 +1,16 @@
-bu veryonda asyc ve parallel eklendi
+bu veryonda asyc ve parallel eklendi ve birazda hadler
+
+dikkat edilmesi gereken ben önemli konu handler lar sadece ilfgili, serverda ilgili task le alakalı bir değişiklik (changed) olduğunda çalışır.
+
+https://docs.ansible.com/ansible/latest/user_guide/playbooks_intro.html#handlers-running-operations-on-change
+
+bazen her ne olursa lsun ilgili handler ı her defasında yakalamak isteriz budurumda play_book şu şekilde çalıştırılır.
+
+```
+ansible_playbook playbook.yml -i inventory.txt --force-handlers
+```
+
+yada play içinde  force_handlers: True yapılır yada ansible.cfg içinde force_handlers: True yapıılr.
 
 
 - https://www.middlewareinventory.com/blog/ansible-async/
@@ -68,7 +80,11 @@ yada handler yardımıya bittiğinde haberdar da edebilirz
     - debug: var=output
 
 ```
-bizde bu örnekte python için gerekli ola kütüphanelerin kurulumunu 2 gruba ayırıp async olarka çalıştırdık.
+bizde bu örnekte python için gerekli ola kütüphanelerin kurulumunu 2 gruba ayırdık.
+
+altına 3-5 sniye sleep yapcak bir script ekyerek uzun sürecek bir uygulama haline getirdik.
+
+daha sonra async işlemi belril i,aralıklarla kontrol edecek bir script ile handler ekleledik.
 
 
 
