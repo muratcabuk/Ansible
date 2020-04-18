@@ -38,3 +38,9 @@ Plugins augment Ansible’s core functionality with logic and features that are 
 - raise errors
 - return strings in unicode
 - conform to Ansible’s configuration and documentation standards
+
+## Module vs Plugin
+
+- Modules are reusable, standalone scripts that can be used by the Ansible API, the ansible command, or the ansible-playbook command. Modules provide a defined interface, accepting arguments and returning information to Ansible by printing a JSON string to stdout before exiting. Modules execute on the target system (usually that means on a remote system) in separate processes.
+- Plugins augment Ansible’s core functionality and execute on the control node within the /usr/bin/ansible process. Plugins offer options and extensions for the core features of Ansible - transforming data, logging output, connecting to inventory, and more.
+Adding a module locally
