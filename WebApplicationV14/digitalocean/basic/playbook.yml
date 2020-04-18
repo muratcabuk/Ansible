@@ -1,5 +1,10 @@
 ---
 - hosts: localhost
+  token: d67969322efc14e17a09a360978f09e3970e86e6a21c01a8c31f7c03bf22374c
+  mydropletname: myTestDroplet
+  imagename: ubuntu-18-04-x64
+  regionname: fra1
+  dropletsize: s-1vcpu-1gb
   tasks:
     - name: create a new droplet
       digital_ocean_droplet:
