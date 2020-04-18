@@ -25,11 +25,11 @@
       digital_ocean_droplet:
         state: present
         # id: {{ my_droplet.data.droplet.id }}
-        name: {{ item.mydropletname }}
-        oauth_token: {{ item.token }}
-        size: {{ item.dropletsize }}
-        region: {{ item.regionname }}
-        image: {{ item.imagename }}
+        name: '{{ item.mydropletname }}'
+        oauth_token: '{{ item.token }}'
+        size: '{{ item.dropletsize }}'
+        region: '{{ item.regionname }}'
+        image: '{{ item.imagename }}'
         wait_timeout: 500
 
 
