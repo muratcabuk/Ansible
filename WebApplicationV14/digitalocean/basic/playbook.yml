@@ -24,6 +24,7 @@
     - name: ensure a droplet is present
       digital_ocean_droplet:
         name: '{{ mydropletname }}'
+        oauth_token: '{{ token }}'
         state: absent
 
     - debug:
