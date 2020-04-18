@@ -1,3 +1,19 @@
+## Module Installation
+
+
+Galaxy
+
+Bir Community edition ama Ansible koordinasyonunda devam  Modules, plugin, Roles vb var
+
+https://github.com/ansible-collections/community.general
+
+örnek kurulum
+
+```
+ansible-galaxy collection install community.general
+```
+
+
 ## Dev Guide Sayfası
 
 
