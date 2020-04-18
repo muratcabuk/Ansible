@@ -1,20 +1,20 @@
 ---
 - hosts: all
-  vars:
-    token: d67969322efc14e17a09a360978f09e3970e86e6a21c01a8c31f7c03bf22374c
-    mydropletname: myTestDroplet
-    imagename: ubuntu-18-04-x64
-    regionname: fra1
-    dropletsize: s-1vcpu-1gb
+  with_items:
+    - token: d67969322efc14e17a09a360978f09e3970e86e6a21c01a8c31f7c03bf22374c
+    - mydropletname: myTestDroplet
+    - imagename: ubuntu-18-04-x64
+    - regionname: fra1
+    - dropletsize: s-1vcpu-1gb
   tasks:
     - name: create a new droplet
       digital_ocean_droplet:
         state: present
-        name: '{{ mydropletname }}'
-        oauth_token: '{{ token }}'
-        size: '{{ dropletsize }}'
-        region: '{{ regionname }}'
-        image: '{{ imagename }}'
+        name: '{{ item.mydropletname }}'
+        oauth_token: '{{ item.token }}'
+        size: '{{ item.dropletsize }}'
+        region: '{{ item.regionname }}'
+        image: '{{ item.imagename }}'
         wait_timeout: 500
       register: my_droplet
 
@@ -25,11 +25,11 @@
       digital_ocean_droplet:
         state: present
         # id: {{ my_droplet.data.droplet.id }}
-        name: {{ mydropletname }}
-        oauth_token: {{ token }}
-        size: {{ dropletsize }}
-        region: {{ regionname }}
-        image: {{ imagename }}
+        name: {{ item.mydropletname }}
+        oauth_token: {{ item.token }}
+        size: {{ item.dropletsize }}
+        region: {{ item.regionname }}
+        image: {{ item.imagename }}
         wait_timeout: 500
 
 
