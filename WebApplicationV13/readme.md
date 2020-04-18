@@ -125,6 +125,7 @@ Vagrant.configure(2) do |config|
 end
 ```
 
+
 daha birçok işlem yaptırılabilir
 
 https://www.vagrantup.com/docs/provisioning/ansible.html

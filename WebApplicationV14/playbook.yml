@@ -1,0 +1,11 @@
+---
+- name: Deloy a Db Server
+  hosts: dbserver
+  roles:
+    - dbrole
+
+- name: Deloy a Web Server
+  hosts: webserver
+  roles:
+    - pythonrole
+    - webrole
