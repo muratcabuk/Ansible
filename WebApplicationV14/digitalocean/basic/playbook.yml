@@ -32,6 +32,21 @@
         image: '{{ imagename }}'
         wait_timeout: 500
 
+    - name: ensure a droplet is absent
+      digital_ocean_droplet:
+        state: absent
+        # id: {{ my_droplet.data.droplet.id }}
+        name: '{{ mydropletname }}'
+        oauth_token: '{{ token }}'
+        size: '{{ dropletsize }}'
+        region: '{{ regionname }}'
+        image: '{{ imagename }}'
+        wait_timeout: 500
+
+    - debug:
+       msg: "{{ imagename }} is removed"
+
+
 
 
 
