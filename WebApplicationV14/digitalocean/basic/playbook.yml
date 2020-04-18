@@ -23,7 +23,7 @@
 
     - name: ensure a droplet is present
       digital_ocean_droplet:
-        state: present
+        #state: present
         # id: {{ my_droplet.data.droplet.id }}
         name: '{{ mydropletname }}'
         oauth_token: '{{ token }}'
