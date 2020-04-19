@@ -24,15 +24,15 @@
 
     - name: create a resource group
       azure_rm_resourcegroup:
-        name: {{ resource_group }}
+        name: "{{ resource_group }}"
         location: westeu
         state: present
       tags: 1
 
     - name: create a virtual network
       azure_rm_virtualnetwork:
-        resource_group: {{ resource_group }}
-        name: {{ testvirtualnetwork }}
+        resource_group: "{{ resource_group }}"
+        name: "{{ testvirtualnetwork }}"
         address_prefixes_cidr:
           - "10.0.0.0/16"
         # dns_servers:
@@ -47,9 +47,9 @@
 
     - name: create a subnet
       azure_rm_subnet:
-        resource_group: {{ resource_group }}
-        virtual_network_name: {{ testvirtualnetwork }}
-        name: {{ testsubnet }}
+        resource_group: "{{ resource_group }}"
+        virtual_network_name: "{{ testvirtualnetwork }}"
+        name: "{{ testsubnet }}"
         address_prefix: "10.0.1.0/24"
         state: present    
       register: sn_result
@@ -60,10 +60,10 @@
 
     - name: Create virtual network inteface cards for VMs
       azure_rm_networkinterface:
-        resource_group: {{ resource_group }}
-        name: {{ network_interface_name }}
-        virtual_network: {{ testvirtualnetwork }}
-        subnet: {{ testsubnet }}
+        resource_group: "{{ resource_group }}"
+        name: "{{ network_interface_name }}"
+        virtual_network: "{{ testvirtualnetwork }}"
+        subnet: "{{ testsubnet }}"
         tags: 4
       register: vni_result
 
@@ -73,8 +73,8 @@
 
     - name: create a storage account
       azure_rm_storageaccount:
-        resource_group: {{ resource_group }}
-        name: {{ sa_name }}
+        resource_group: "{{ resource_group }}"
+        name: "{{ sa_name }}"
         account_type: Standard_LRS
         kind: StorageV2
         state: present
@@ -86,8 +86,8 @@
 
     - name: Create managed windows system disk from page blob
       azure_rm_manageddisk:
-        name: {{ item.osmanageddiskname }}
-        resource_group:  {{ resource_group }}
+        name: "{{ item.osmanageddiskname }}"
+        resource_group:  "{{ resource_group }}"
         create_option: empty
         os_type: windows
         storage_account_type: Standart_LRS
@@ -102,8 +102,8 @@
       
     - name: Create managed linux system disk from page blob
       azure_rm_manageddisk:
-        name: {{ item.osmanageddiskname }}
-        resource_group:  {{ resource_group }}
+        name: "{{ item.osmanageddiskname }}"
+        resource_group:  "{{ resource_group }}"
         create_option: empty
         os_type: linux
         storage_account_type: Standart_LRS
@@ -118,8 +118,8 @@
 
     - name: Create an availability set with default options for windows
       azure_rm_availabilityset:
-        name: {{aswindows_name}}
-        resource_group: {{ resource_group }}
+        name: "{{aswindows_name}}"
+        resource_group: "{{ resource_group }}"
         state: present
       register: aswindows_result
       tags: 8
@@ -129,8 +129,8 @@
 
     - name: Create an availability set with default options for linux
       azure_rm_availabilityset:
-        name: {{aslinux_name}}
-        resource_group: {{ resource_group }}
+        name: "{{aslinux_name}}"
+        resource_group: "{{ resource_group }}"
         state: present
       register: aslinux_result
       tags: 9
@@ -142,17 +142,17 @@
 
     - name: Create a Windows VM with existing storage account
       azure_rm_virtualmachine:
-        resource_group: {{ resource_group }}
-        name: {{ item.name }}
-        admin_username: {{ windows_user }}
-        admin_password: {{ vm_password }}
+        resource_group: "{{ resource_group }}"
+        name: "{{ item.name }}"
+        admin_username: "{{ windows_user }}"
+        admin_password: "{{ vm_password }}"
         vm_size: Standart_B1S
-        storage_account: {{ sa_name }}
+        storage_account: "{{ sa_name }}"
         os_type: Windows
         public_ip_allocation_method: Dynamic
         # subnet_name: {{ testsubnet }}
-        # virtual_network_name: {{ testvirtualnetwork }}
-        network_interfaces: {{ network_interface_name }}
+        # virtual_network_name: {{ testvirtualnetwork }}"
+        network_interfaces: "{{ network_interface_name }}"
         state: present
         image:
           offer: WindowsServer
@@ -168,21 +168,21 @@
 
     - name: Create a Linux VM with existing storage account
       azure_rm_virtualmachine:
-        resource_group: {{ resource_group }}
-        name: {{ item.name }}
-        admin_username: {{ linux_user }}
-        admin_password: {{ vm_password }}
+        resource_group: "{{ resource_group }}"
+        name: "{{ item.name }}"
+        admin_username: "{{ linux_user }}"
+        admin_password: "{{ vm_password }}"
         ssh_password_enabled: true
         # ssh_public_keys:
         #   - path: /home/{{linux_user}}/.ssh/authorized_keys
         #     key_data: <your-key-data>
         vm_size: Standart_B1S
-        storage_account: {{ sa_name }}
+        storage_account: "{{ sa_name }}"
         os_type: Linux
         public_ip_allocation_method: Dynamic
-        # subnet_name: {{ testsubnet }}
-        # virtual_network_name: {{ testvirtualnetwork }}
-        network_interfaces: {{ network_interface_name }}
+        # subnet_name: "{{ testsubnet }}"
+        # virtual_network_name: "{{ testvirtualnetwork }}"
+        network_interfaces: "{{ network_interface_name }}"
         state: present
         image:
           offer: UbuntuServer
