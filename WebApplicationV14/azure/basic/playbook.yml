@@ -1,0 +1,200 @@
+---
+- hosts: localhost
+  vars:
+    - windows_servers:
+        - wserver1: name=wserver1murat osmanageddiskname=wserver1mandisk1murat
+        - wserver2: name=wserver2murat osmanageddiskname=wserver2mandisk1murat
+
+    - linux_servers:
+        - lserver1: name=lserver1murat osmanageddiskname=lserver1mandisk1murat
+        - lserver2: name=lserver2murat osmanageddiskname=lserver2mandisk1murat
+
+#    - resource_group: MCTEST # ------> host_vars a taşındı
+    - linux_user: administrator
+    - windows_user: administrator
+    - vm_password: 'Passw0rd-1'
+    - vn_name: testvirtualnetworkmurat
+    - sn_name: testsubnetmurat
+    - sa_name: teststoragemurat
+    - aswindows_name: testaysetwindowsmurat
+    - aslinux_name: testaysetlinuxmurat
+    - network_interface_name: testinterfacemurat
+
+  tasks:
+
+    - name: create a resource group
+      azure_rm_resourcegroup:
+        name: {{ resource_group }}
+        location: westeu
+        state: present
+      tags: 1
+
+
+
+    - name: create a virtual network
+      azure_rm_virtualnetwork:
+        resource_group: {{ resource_group }}
+        name: {{ testvirtualnetwork }}
+        address_prefixes_cidr:
+          - "10.0.0.0/16"
+        # dns_servers:
+        #   - "127.0.0.1"
+        state: present
+      register: vn_result
+      tags: 2
+
+    - debug:
+        msg: "virtual network is created. Id: {{vn_result.id}}, Name: {{vn_result.name}}, Location: {{vn_result.location}}"
+
+
+    - name: create a subnet
+      azure_rm_subnet:
+        resource_group: {{ resource_group }}
+        virtual_network_name: {{ testvirtualnetwork }}
+        name: {{ testsubnet }}
+        address_prefix: "10.0.1.0/24"
+        state: present    
+      register: sn_result
+      tags: 3
+
+    - debug:
+        msg: "subnet is created.Id: {{sn_result.id}}, Name: {{sn_result.name}}, Location: {{sn_result.location}}"
+
+    - name: Create virtual network inteface cards for VMs
+      azure_rm_networkinterface:
+        resource_group: {{ resource_group }}
+        name: {{ network_interface_name }}
+        virtual_network: {{ testvirtualnetwork }}
+        subnet: {{ testsubnet }}
+        tags: 4
+      register: vni_result
+
+    - debug:
+        msg: "virtual network inteface is created.Id: {{vni_result.id}}, Name: {{vni_result.name}}, Location: {{vni_result.location}}"
+
+
+    - name: create a storage account
+      azure_rm_storageaccount:
+        resource_group: {{ resource_group }}
+        name: {{ sa_name }}
+        account_type: Standard_LRS
+        kind: StorageV2
+        state: present
+      register: sa_result
+      tags: 5
+
+    - debug:
+        msg: "storage account is created.Id: {{sa_result.id}}, Name: {{sa_result.name}}, Location: {{sa_result.location}}"
+
+    - name: Create managed windows system disk from page blob
+      azure_rm_manageddisk:
+        name: {{ item.osmanageddiskname }}
+        resource_group:  {{ resource_group }}
+        create_option: empty
+        os_type: windows
+        storage_account_type: Standart_LRS
+        state: present
+      with_items: {{ windows_servers }}
+      register: windows_mandisk_result
+      tags: 6
+
+    - debug:
+        msg: "Windows Managed Disks are created: {{ windows_mandisk_result }}"
+
+      
+    - name: Create managed linux system disk from page blob
+      azure_rm_manageddisk:
+        name: {{ item.osmanageddiskname }}
+        resource_group:  {{ resource_group }}
+        create_option: empty
+        os_type: linux
+        storage_account_type: Standart_LRS
+        state: present
+      with_items: {{ linux_servers }}
+      register: linux_mandisk_result
+      tags: 7
+
+    - debug:
+        msg: "Linux Managed Disks are created: {{ linux_mandisk_result }}"
+
+
+    - name: Create an availability set with default options for windows
+      azure_rm_availabilityset:
+        name: {{aswindows_name}}
+        resource_group: {{ resource_group }}
+        state: present
+      register: aswindows_result
+      tags: 8
+
+    - debug:
+        msg: "Availability set for windows is created. Id: {{aswindows_result.id}}, Name: {{aswindows_result.name}}, Location: {{aswindows_result.location}}"
+
+    - name: Create an availability set with default options for linux
+      azure_rm_availabilityset:
+        name: {{aslinux_name}}
+        resource_group: {{ resource_group }}
+        state: present
+      register: aslinux_result
+      tags: 9
+
+    - debug:
+        msg: "Availability set for linux is created. Id: {{aslinux_result.id}}, Name: {{aslinux_result.name}}, Location: {{aslinux_result.location}}"
+
+
+
+    - name: Create a Windows VM with existing storage account
+      azure_rm_virtualmachine:
+        resource_group: {{ resource_group }}
+        name: {{ item.name }}
+        admin_username: {{ windows_user }}
+        admin_password: {{ vm_password }}
+        vm_size: Standart_B1S
+        storage_account: {{ sa_name }}
+        os_type: Windows
+        public_ip_allocation_method: Dynamic
+        # subnet_name: {{ testsubnet }}
+        # virtual_network_name: {{ testvirtualnetwork }}
+        network_interfaces: {{ network_interface_name }}
+        state: present
+        image:
+          offer: WindowsServer
+          publisher: MicrosoftWindowsServer
+          sku: 2016-Datacenter
+          version: latest
+      with_items: {{ windows_servers }}
+      register: vmwin_result
+      tags: 10
+      
+    - debug:
+        msg: "Windows VMs are created: {{vmwin_result}}"
+
+    - name: Create a Linux VM with existing storage account
+      azure_rm_virtualmachine:
+        resource_group: {{ resource_group }}
+        name: {{ item.name }}
+        admin_username: {{linux_user}}
+        admin_password: {{vm_password}}
+        ssh_password_enabled: true
+        # ssh_public_keys:
+        #   - path: /home/{{linux_user}}/.ssh/authorized_keys
+        #     key_data: <your-key-data>
+        vm_size: Standart_B1S
+        storage_account: {{ sa_name }}
+        os_type: Linux
+        public_ip_allocation_method: Dynamic
+        # subnet_name: {{ testsubnet }}
+        # virtual_network_name: {{ testvirtualnetwork }}
+        network_interfaces: {{ network_interface_name }}
+        state: present
+        image:
+          offer: UbuntuServer
+          publisher: Canonical
+          sku: 18.04-LTS
+          version: latest
+      with_items: {{ Linux_servers }}
+      register: vmlin_result
+      tags: 11
+      
+    - debug:
+        msg: "Linux VMs are created: {{vmlin_result}}"
+

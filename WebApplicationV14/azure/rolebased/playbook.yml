@@ -1,0 +1,8 @@
+---
+- name: Deloy Linux Servers
+  roles:
+    - linuxrole
+
+- name: Deloy Windows Servers
+  roles:
+    - windowsrole

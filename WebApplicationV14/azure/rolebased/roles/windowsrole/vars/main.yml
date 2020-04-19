@@ -1,0 +1,5 @@
+resource_group_list:
+    - MCTEST
+vm_count: 3
+
+
