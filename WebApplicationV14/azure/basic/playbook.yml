@@ -92,7 +92,7 @@
         os_type: windows
         storage_account_type: Standart_LRS
         state: present
-      with_items: {{ windows_servers }}
+      with_items: "{{ windows_servers }}"
       register: windows_mandisk_result
       tags: 6
 
@@ -108,7 +108,7 @@
         os_type: linux
         storage_account_type: Standart_LRS
         state: present
-      with_items: {{ linux_servers }}
+      with_items: "{{ linux_servers }}"
       register: linux_mandisk_result
       tags: 7
 
