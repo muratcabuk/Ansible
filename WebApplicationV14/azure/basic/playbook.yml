@@ -159,7 +159,7 @@
           publisher: MicrosoftWindowsServer
           sku: 2016-Datacenter
           version: latest
-      with_items: {{ windows_servers }}
+      with_items: "{{ windows_servers }}"
       register: vmwin_result
       tags: 10
       
@@ -189,7 +189,7 @@
           publisher: Canonical
           sku: 18.04-LTS
           version: latest
-      with_items: {{ Linux_servers }}
+      with_items: "{{ Linux_servers }}"
       register: vmlin_result
       tags: 11
       
