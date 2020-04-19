@@ -2,12 +2,12 @@
 - hosts: localhost
   vars:
     - windows_servers:
-        - wserver1: name=wserver1murat osmanageddiskname=wserver1mandisk1murat
-        - wserver2: name=wserver2murat osmanageddiskname=wserver2mandisk1murat
+        - wserver1: {name: wserver1murat,  osmanageddiskname: wserver1mandisk1murat}
+        - wserver2: {name: wserver2murat, osmanageddiskname: wserver2mandisk1murat}
 
     - linux_servers:
-        - lserver1: name=lserver1murat osmanageddiskname=lserver1mandisk1murat
-        - lserver2: name=lserver2murat osmanageddiskname=lserver2mandisk1murat
+        - lserver1: {name: lserver1murat, osmanageddiskname: lserver1mandisk1murat}
+        - lserver2: {name: lserver2murat, osmanageddiskname: lserver2mandisk1murat}
 
 #    - resource_group: MCTEST # ------> host_vars a taşındı
     - linux_user: administrator
@@ -28,8 +28,6 @@
         location: westeu
         state: present
       tags: 1
-
-
 
     - name: create a virtual network
       azure_rm_virtualnetwork:
@@ -172,8 +170,8 @@
       azure_rm_virtualmachine:
         resource_group: {{ resource_group }}
         name: {{ item.name }}
-        admin_username: {{linux_user}}
-        admin_password: {{vm_password}}
+        admin_username: {{ linux_user }}
+        admin_password: {{ vm_password }}
         ssh_password_enabled: true
         # ssh_public_keys:
         #   - path: /home/{{linux_user}}/.ssh/authorized_keys
