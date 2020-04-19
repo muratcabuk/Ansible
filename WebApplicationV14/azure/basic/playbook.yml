@@ -27,7 +27,8 @@
         name: "{{ resource_group }}"
         location: westeu
         state: present
-      tags: 1
+      tags: 
+        - 1
 
     - name: create a virtual network
       azure_rm_virtualnetwork:
@@ -39,7 +40,8 @@
         #   - "127.0.0.1"
         state: present
       register: vn_result
-      tags: 2
+      tags: 
+        - 2
 
     - debug:
         msg: "virtual network is created. Id: {{vn_result.id}}, Name: {{vn_result.name}}, Location: {{vn_result.location}}"
@@ -53,7 +55,8 @@
         address_prefix: "10.0.1.0/24"
         state: present    
       register: sn_result
-      tags: 3
+      tags: 
+        - 3
 
     - debug:
         msg: "subnet is created.Id: {{sn_result.id}}, Name: {{sn_result.name}}, Location: {{sn_result.location}}"
@@ -64,7 +67,8 @@
         name: "{{ network_interface_name }}"
         virtual_network: "{{ testvirtualnetwork }}"
         subnet: "{{ testsubnet }}"
-        tags: 4
+        tags: 
+          - 4
       register: vni_result
 
     - debug:
@@ -79,7 +83,8 @@
         kind: StorageV2
         state: present
       register: sa_result
-      tags: 5
+      tags: 
+        - 5
 
     - debug:
         msg: "storage account is created.Id: {{sa_result.id}}, Name: {{sa_result.name}}, Location: {{sa_result.location}}"
@@ -94,7 +99,8 @@
         state: present
       with_items: "{{ windows_servers }}"
       register: windows_mandisk_result
-      tags: 6
+      tags: 
+        - 6
 
     - debug:
         msg: "Windows Managed Disks are created: {{ windows_mandisk_result }}"
@@ -110,7 +116,8 @@
         state: present
       with_items: "{{ linux_servers }}"
       register: linux_mandisk_result
-      tags: 7
+      tags: 
+        - 7
 
     - debug:
         msg: "Linux Managed Disks are created: {{ linux_mandisk_result }}"
@@ -122,7 +129,8 @@
         resource_group: "{{ resource_group }}"
         state: present
       register: aswindows_result
-      tags: 8
+      tags: 
+        - 8
 
     - debug:
         msg: "Availability set for windows is created. Id: {{aswindows_result.id}}, Name: {{aswindows_result.name}}, Location: {{aswindows_result.location}}"
@@ -133,7 +141,8 @@
         resource_group: "{{ resource_group }}"
         state: present
       register: aslinux_result
-      tags: 9
+      tags: 
+        - 9
 
     - debug:
         msg: "Availability set for linux is created. Id: {{aslinux_result.id}}, Name: {{aslinux_result.name}}, Location: {{aslinux_result.location}}"
@@ -161,7 +170,8 @@
           version: latest
       with_items: "{{ windows_servers }}"
       register: vmwin_result
-      tags: 10
+      tags: 
+        - 10
       
     - debug:
         msg: "Windows VMs are created: {{vmwin_result}}"
@@ -191,7 +201,8 @@
           version: latest
       with_items: "{{ Linux_servers }}"
       register: vmlin_result
-      tags: 11
+      tags: 
+        - 11
       
     - debug:
         msg: "Linux VMs are created: {{vmlin_result}}"
