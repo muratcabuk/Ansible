@@ -2,17 +2,17 @@
 - hosts: localhost
   vars:
     - windows_servers:
-        - wserver1: {name: wserver1murat,  osmanageddiskname: wserver1mandisk1murat}
-        - wserver2: {name: wserver2murat, osmanageddiskname: wserver2mandisk1murat}
+        - wserver1: {name: wserver1murat, osmanageddiskname: wserver1mandisk1murat, ninterface: nimuratwserver1}
+        - wserver2: {name: wserver2murat, osmanageddiskname: wserver2mandisk1murat, ninterface: nimuratwserver2}
 
     - linux_servers:
-        - lserver1: {name: lserver1murat, osmanageddiskname: lserver1mandisk1murat}
-        - lserver2: {name: lserver2murat, osmanageddiskname: lserver2mandisk1murat}
+        - lserver1: {name: lserver1murat, osmanageddiskname: lserver1mandisk1murat, ninterface: nimuratlserver1}
+        - lserver2: {name: lserver2murat, osmanageddiskname: lserver2mandisk1murat, ninterface: nimuratlserver2}
 
 #    - resource_group: MCTEST # ------> host_vars a taşındı
-    - linux_user: administrator
-    - windows_user: administrator
-    - vm_password: 'Passw0rd-1'
+    - linux_user: muratcabuk
+    - windows_user: muratcabuk
+    - vm_password: Passw0rd-1
     - vn_name: testvirtualnetworkmurat
     - sn_name: testsubnetmurat
     - sa_name: teststoragemurat
@@ -61,19 +61,39 @@
     - debug:
         msg: "subnet is created. {{sn_result}}"
 
-    - name: Create virtual network inteface cards for VMs
+    - name: Create virtual network inteface cards for windows VMs
       azure_rm_networkinterface:
         resource_group: "{{ resource_group }}"
-        name: "{{ network_interface_name }}"
+        name: "{{ item.ninterface }}"
         virtual_network: "{{ vn_name }}"
         subnet: "{{ sn_name }}"
         state: present
-        register: vni_result
-        tags: 
-          - 4
+        with_items: "{{ windows_servers }}"
+#        register: vni_result
+#        tags: 
+#          - 4
 
     - debug:
-        msg: "virtual network inteface is created. {{ vni_result }}"
+        msg: "virtual network inteface is created for windows"
+
+
+    - name: Create virtual network inteface cards for linux VMs
+      azure_rm_networkinterface:
+        resource_group: "{{ resource_group }}"
+        name: "{{ item.ninterface }}"
+        virtual_network: "{{ vn_name }}"
+        subnet: "{{ sn_name }}"
+        state: present
+        with_items: "{{ linux_servers }}"
+#        register: vni_result
+#        tags: 
+#          - 4
+
+    - debug:
+        msg: "virtual network inteface is created for linux"
+
+
+        
 
 
     - name: create a storage account
@@ -96,7 +116,7 @@
         resource_group:  "{{ resource_group }}"
         create_option: empty
         os_type: windows
-        storage_account_type: Standart_LRS
+        storage_account_type: Standard_LRS
         state: present
       with_items: "{{ windows_servers }}"
       register: windows_mandisk_result
@@ -113,7 +133,7 @@
         resource_group:  "{{ resource_group }}"
         create_option: empty
         os_type: linux
-        storage_account_type: Standart_LRS
+        storage_account_type: Standard_LRS
         state: present
       with_items: "{{ linux_servers }}"
       register: linux_mandisk_result
@@ -156,13 +176,13 @@
         name: "{{ item.name }}"
         admin_username: "{{ windows_user }}"
         admin_password: "{{ vm_password }}"
-        vm_size: Standart_B1S
+        vm_size: Standard_B1s
         storage_account: "{{ sa_name }}"
         os_type: Windows
         public_ip_allocation_method: Dynamic
         # subnet_name: {{ testsubnet }}
         # virtual_network_name: {{ testvirtualnetwork }}"
-        network_interfaces: "{{ network_interface_name }}"
+        network_interfaces: "{{ item.ninterface }}"
         state: present
         image:
           offer: WindowsServer
@@ -187,7 +207,7 @@
         # ssh_public_keys:
         #   - path: /home/{{linux_user}}/.ssh/authorized_keys
         #     key_data: <your-key-data>
-        vm_size: Standart_B1S
+        vm_size: Standard_B1s
         storage_account: "{{ sa_name }}"
         os_type: Linux
         public_ip_allocation_method: Dynamic
