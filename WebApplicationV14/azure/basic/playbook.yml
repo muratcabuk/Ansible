@@ -25,7 +25,7 @@
     - name: create a resource group
       azure_rm_resourcegroup:
         name: "{{ resource_group }}"
-        location: westeu
+        location: westeurope
         state: present
       tags: 
         - 1

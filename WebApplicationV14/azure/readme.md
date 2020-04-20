@@ -1,4 +1,6 @@
-microsoftun kendi başlattığı azure modulu var galaxy de birde community nin devam ettridiği. Aslında ikisi de aynı ansible sadece azure tarafında yapılan modulleri sayfasında toplamış modul issimlerine bakılırsa analaşılşıyor zaten
+Azure u çalıştırabilmek için azure cli ı indirip birkez az login komutunu çalıştımış olmak lazım.
+
+ microsoftun kendi başlattığı azure modulu var galaxy de birde community nin devam ettridiği. Aslında ikisi de aynı ansible sadece azure tarafında yapılan modulleri sayfasında toplamış modul issimlerine bakılırsa analaşılşıyor zaten
 
 
 
