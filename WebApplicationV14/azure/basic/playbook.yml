@@ -182,6 +182,7 @@
         public_ip_allocation_method: Dynamic
         # subnet_name: {{ testsubnet }}
         # virtual_network_name: {{ testvirtualnetwork }}"
+        createOption: FromImage
         disk_size_gb: 50
         network_interfaces: "{{ item.ninterface }}"
         state: present
@@ -208,6 +209,7 @@
         # ssh_public_keys:
         #   - path: /home/{{linux_user}}/.ssh/authorized_keys
         #     key_data: <your-key-data>
+        createOption: FromImage
         disk_size_gb: 50
         vm_size: Standard_B1s
         storage_account: "{{ sa_name }}"
