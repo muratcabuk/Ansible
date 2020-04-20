@@ -53,3 +53,5 @@ failed: "msg": "Unsupported parameters for (azure_rm_virtualmachine) module: osP
 Azure Dynamic Inventory için rolebased olan klasörü kullandık
 
 basic lan proje makinları create ediyor role based olan ise makinlara kurlumları yapıyor.
+
+https://docs.ansible.com/ansible/latest/scenario_guides/guide_azure.html

@@ -1,0 +1,1 @@
+https://docs.ansible.com/ansible/latest/scenario_guides/guide_azure.html
