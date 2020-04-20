@@ -23,6 +23,13 @@ https://argonsys.com/microsoft-cloud/articles/configuring-ansible-manage-windows
 https://dev.to/cloudskills/deploy-a-windows-vm-to-azure-with-ansible-2l9m
 
 
+Managed disk iki tane eklenemiyormuş. yada mkinayı aayağa kaldırırken ekleyeceğiz.
+
+o yüzden basic deki en lttaki 2 maneged disk oluşturma bölümünü açıklama satırın açevirdim.
+
+birde VM leri oluşturması çok uzun sürüyor asyc/poll yaprak beklmeyi kaldırdım. async 3600 poll 0 ayarlandı
+
+
 - Microsoft
 
 https://docs.microsoft.com/en-us/azure/developer/ansible/

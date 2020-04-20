@@ -153,6 +153,8 @@
           publisher: MicrosoftWindowsServer
           sku: 2016-Datacenter
           version: latest
+      async: 3600
+      poll: 0
       with_items: "{{ windows_servers }}"
       register: vmwin_result
       tags: 
@@ -178,7 +180,9 @@
           offer: UbuntuServer
           publisher: Canonical
           sku: 18.04-LTS
-          version: latest
+          version: latest       
+      async: 3600
+      poll: 0
       with_items: "{{ linux_servers }}"
       register: vmlin_result
       tags: 
@@ -188,40 +192,40 @@
         msg: "Linux VMs are created: {{vmlin_result}}"
 
        
-    - name: Create managed windows system disk from page blob
-      azure_rm_manageddisk:
-        name: "{{ item.osmanageddiskname }}"
-        resource_group:  "{{ resource_group }}"
-        create_option: empty
-        disk_size_gb: 50
-        os_type: windows
-        storage_account_type: Standard_LRS
-        managed_by: "{{ item.name }}"
-        state: present
-      with_items: "{{ windows_servers }}"
-      register: windows_mandisk_result
-      tags: 
-        - 6
+    # - name: Create managed windows system disk from page blob
+    #   azure_rm_manageddisk:
+    #     name: "{{ item.osmanageddiskname }}"
+    #     resource_group:  "{{ resource_group }}"
+    #     create_option: empty
+    #     disk_size_gb: 50
+    #     os_type: windows
+    #     storage_account_type: Standard_LRS
+    #     managed_by: "{{ item.name }}"
+    #     state: present
+    #   with_items: "{{ windows_servers }}"
+    #   register: windows_mandisk_result
+    #   tags: 
+    #     - 6
 
-    - debug:
-        msg: "Windows Managed Disks are created: {{ windows_mandisk_result }}"
+    # - debug:
+    #     msg: "Windows Managed Disks are created: {{ windows_mandisk_result }}"
 
       
-    - name: Create managed linux system disk from page blob
-      azure_rm_manageddisk:
-        name: "{{ item.osmanageddiskname }}"
-        resource_group:  "{{ resource_group }}"
-        create_option: empty
-        disk_size_gb: 50
-        os_type: linux
-        storage_account_type: Standard_LRS
-        managed_by: "{{ item.name }}"
-        state: present
-      with_items: "{{ linux_servers }}"
-      register: linux_mandisk_result
-      tags: 
-        - 7
+    # - name: Create managed linux system disk from page blob
+    #   azure_rm_manageddisk:
+    #     name: "{{ item.osmanageddiskname }}"
+    #     resource_group:  "{{ resource_group }}"
+    #     create_option: empty
+    #     disk_size_gb: 50
+    #     os_type: linux
+    #     storage_account_type: Standard_LRS
+    #     managed_by: "{{ item.name }}"
+    #     state: present
+    #   with_items: "{{ linux_servers }}"
+    #   register: linux_mandisk_result
+    #   tags: 
+    #     - 7
 
-    - debug:
-        msg: "Linux Managed Disks are created: {{ linux_mandisk_result }}"
+    # - debug:
+    #     msg: "Linux Managed Disks are created: {{ linux_mandisk_result }}"
 
