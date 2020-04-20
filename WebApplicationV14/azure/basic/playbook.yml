@@ -68,9 +68,9 @@
         virtual_network: "{{ vn_name }}"
         subnet: "{{ sn_name }}"
         state: present
+        register: vni_result
         tags: 
           - 4
-      register: vni_result
 
     - debug:
         msg: "virtual network inteface is created. {{ vni_result }}"
