@@ -67,6 +67,7 @@
         name: "{{ network_interface_name }}"
         virtual_network: "{{ vn_name }}"
         subnet: "{{ sn_name }}"
+        state: present
         tags: 
           - 4
       register: vni_result
