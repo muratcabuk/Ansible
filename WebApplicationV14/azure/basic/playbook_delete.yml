@@ -1,6 +1,6 @@
 ---
 - hosts: localhost
-- tasks:
+  tasks:
     - name: Delete a resource group including resources it contains
       azure_rm_resourcegroup:
         name: "{{ resource_group }}"
