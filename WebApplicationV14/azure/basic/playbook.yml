@@ -44,7 +44,7 @@
         - 2
 
     - debug:
-        msg: "virtual network is created. Id: {{vn_result.id}}, Name: {{vn_result.name}}, Location: {{vn_result.location}}"
+        msg: "virtual network is created. {{vn_result}}"
 
 
     - name: create a subnet
@@ -59,7 +59,7 @@
         - 3
 
     - debug:
-        msg: "subnet is created.Id: {{sn_result.id}}, Name: {{sn_result.name}}, Location: {{sn_result.location}}"
+        msg: "subnet is created. {{sn_result}}"
 
     - name: Create virtual network inteface cards for VMs
       azure_rm_networkinterface:
@@ -72,7 +72,7 @@
       register: vni_result
 
     - debug:
-        msg: "virtual network inteface is created.Id: {{vni_result.id}}, Name: {{vni_result.name}}, Location: {{vni_result.location}}"
+        msg: "virtual network inteface is created. {{ vni_result }}"
 
 
     - name: create a storage account
@@ -87,7 +87,7 @@
         - 5
 
     - debug:
-        msg: "storage account is created.Id: {{sa_result.id}}, Name: {{sa_result.name}}, Location: {{sa_result.location}}"
+        msg: "storage account is created. {{ sa_result }}"
 
     - name: Create managed windows system disk from page blob
       azure_rm_manageddisk:
@@ -133,7 +133,7 @@
         - 8
 
     - debug:
-        msg: "Availability set for windows is created. Id: {{aswindows_result.id}}, Name: {{aswindows_result.name}}, Location: {{aswindows_result.location}}"
+        msg: "Availability set for windows is created. {{ aswindows_result }}"
 
     - name: Create an availability set with default options for linux
       azure_rm_availabilityset:
@@ -145,7 +145,7 @@
         - 9
 
     - debug:
-        msg: "Availability set for linux is created. Id: {{aslinux_result.id}}, Name: {{aslinux_result.name}}, Location: {{aslinux_result.location}}"
+        msg: "Availability set for linux is created. {{ aslinux_result }}"
 
 
 
@@ -174,7 +174,7 @@
         - 10
       
     - debug:
-        msg: "Windows VMs are created: {{vmwin_result}}"
+        msg: "Windows VMs are created: {{ vmwin_result }}"
 
     - name: Create a Linux VM with existing storage account
       azure_rm_virtualmachine:
