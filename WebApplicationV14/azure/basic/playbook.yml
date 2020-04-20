@@ -182,6 +182,7 @@
         public_ip_allocation_method: Dynamic
         # subnet_name: {{ testsubnet }}
         # virtual_network_name: {{ testvirtualnetwork }}"
+        disk_size_gb: 50
         network_interfaces: "{{ item.ninterface }}"
         state: present
         image:
@@ -207,20 +208,21 @@
         # ssh_public_keys:
         #   - path: /home/{{linux_user}}/.ssh/authorized_keys
         #     key_data: <your-key-data>
+        disk_size_gb: 50
         vm_size: Standard_B1s
         storage_account: "{{ sa_name }}"
         os_type: Linux
         public_ip_allocation_method: Dynamic
         # subnet_name: "{{ testsubnet }}"
         # virtual_network_name: "{{ testvirtualnetwork }}"
-        network_interfaces: "{{ network_interface_name }}"
+        network_interfaces: "{{ item.ninterface }}"
         state: present
         image:
           offer: UbuntuServer
           publisher: Canonical
           sku: 18.04-LTS
           version: latest
-      with_items: "{{ Linux_servers }}"
+      with_items: "{{ linux_servers }}"
       register: vmlin_result
       tags: 
         - 11
