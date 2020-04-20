@@ -2,12 +2,12 @@
 - hosts: localhost
   vars:
     - windows_servers:
-        - wserver1: {name: wserver1murat, osmanageddiskname: wserver1mandisk1murat, ninterface: nimuratwserver1}
-        - wserver2: {name: wserver2murat, osmanageddiskname: wserver2mandisk1murat, ninterface: nimuratwserver2}
+        - {name: wserver1murat, osmanageddiskname: wserver1mandisk1murat, ninterface: nimuratwserver1}
+        - {name: wserver2murat, osmanageddiskname: wserver2mandisk1murat, ninterface: nimuratwserver2}
 
     - linux_servers:
-        - lserver1: {name: lserver1murat, osmanageddiskname: lserver1mandisk1murat, ninterface: nimuratlserver1}
-        - lserver2: {name: lserver2murat, osmanageddiskname: lserver2mandisk1murat, ninterface: nimuratlserver2}
+        - {name: lserver1murat, osmanageddiskname: lserver1mandisk1murat, ninterface: nimuratlserver1}
+        - {name: lserver2murat, osmanageddiskname: lserver2mandisk1murat, ninterface: nimuratlserver2}
 
 #    - resource_group: MCTEST # ------> host_vars a taşındı
     - linux_user: muratcabuk
