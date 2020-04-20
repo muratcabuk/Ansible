@@ -68,7 +68,7 @@
         virtual_network: "{{ vn_name }}"
         subnet: "{{ sn_name }}"
         state: present
-        with_items: "{{ windows_servers }}"
+      with_items: "{{ windows_servers }}"
 #        register: vni_result
 #        tags: 
 #          - 4
@@ -84,7 +84,7 @@
         virtual_network: "{{ vn_name }}"
         subnet: "{{ sn_name }}"
         state: present
-        with_items: "{{ linux_servers }}"
+      with_items: "{{ linux_servers }}"
 #        register: vni_result
 #        tags: 
 #          - 4
