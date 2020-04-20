@@ -33,7 +33,7 @@
     - name: create a virtual network
       azure_rm_virtualnetwork:
         resource_group: "{{ resource_group }}"
-        name: "{{ testvirtualnetwork }}"
+        name: "{{ vn_name }}"
         address_prefixes_cidr:
           - "10.0.0.0/16"
         # dns_servers:
@@ -50,8 +50,8 @@
     - name: create a subnet
       azure_rm_subnet:
         resource_group: "{{ resource_group }}"
-        virtual_network_name: "{{ testvirtualnetwork }}"
-        name: "{{ testsubnet }}"
+        virtual_network_name: "{{ vn_name }}"
+        name: "{{ sn_name }}"
         address_prefix: "10.0.1.0/24"
         state: present    
       register: sn_result
@@ -65,8 +65,8 @@
       azure_rm_networkinterface:
         resource_group: "{{ resource_group }}"
         name: "{{ network_interface_name }}"
-        virtual_network: "{{ testvirtualnetwork }}"
-        subnet: "{{ testsubnet }}"
+        virtual_network: "{{ vn_name }}"
+        subnet: "{{ sn_name }}"
         tags: 
           - 4
       register: vni_result
