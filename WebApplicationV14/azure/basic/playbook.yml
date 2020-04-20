@@ -18,7 +18,6 @@
     - sa_name: teststoragemurat
     - aswindows_name: testaysetwindowsmurat
     - aslinux_name: testaysetlinuxmurat
-    - network_interface_name: testinterfacemurat
 
   tasks:
 
@@ -110,39 +109,6 @@
     - debug:
         msg: "storage account is created. {{ sa_result }}"
 
-    - name: Create managed windows system disk from page blob
-      azure_rm_manageddisk:
-        name: "{{ item.osmanageddiskname }}"
-        resource_group:  "{{ resource_group }}"
-        create_option: empty
-        os_type: windows
-        storage_account_type: Standard_LRS
-        state: present
-      with_items: "{{ windows_servers }}"
-      register: windows_mandisk_result
-      tags: 
-        - 6
-
-    - debug:
-        msg: "Windows Managed Disks are created: {{ windows_mandisk_result }}"
-
-      
-    - name: Create managed linux system disk from page blob
-      azure_rm_manageddisk:
-        name: "{{ item.osmanageddiskname }}"
-        resource_group:  "{{ resource_group }}"
-        create_option: empty
-        os_type: linux
-        storage_account_type: Standard_LRS
-        state: present
-      with_items: "{{ linux_servers }}"
-      register: linux_mandisk_result
-      tags: 
-        - 7
-
-    - debug:
-        msg: "Linux Managed Disks are created: {{ linux_mandisk_result }}"
-
 
     - name: Create an availability set with default options for windows
       azure_rm_availabilityset:
@@ -180,10 +146,6 @@
         storage_account: "{{ sa_name }}"
         os_type: Windows
         public_ip_allocation_method: Dynamic
-        # subnet_name: {{ testsubnet }}
-        # virtual_network_name: {{ testvirtualnetwork }}"
-        #create_option: empty
-        #disk_size_gb: 50
         network_interfaces: "{{ item.ninterface }}"
         state: present
         image:
@@ -206,17 +168,10 @@
         admin_username: "{{ linux_user }}"
         admin_password: "{{ vm_password }}"
         ssh_password_enabled: true
-        # ssh_public_keys:
-        #   - path: /home/{{linux_user}}/.ssh/authorized_keys
-        #     key_data: <your-key-data>
-        #create_option: empty
-        #disk_size_gb: 50
         vm_size: Standard_B1s
         storage_account: "{{ sa_name }}"
         os_type: Linux
         public_ip_allocation_method: Dynamic
-        # subnet_name: "{{ testsubnet }}"
-        # virtual_network_name: "{{ testvirtualnetwork }}"
         network_interfaces: "{{ item.ninterface }}"
         state: present
         image:
@@ -231,4 +186,42 @@
       
     - debug:
         msg: "Linux VMs are created: {{vmlin_result}}"
+
+       
+    - name: Create managed windows system disk from page blob
+      azure_rm_manageddisk:
+        name: "{{ item.osmanageddiskname }}"
+        resource_group:  "{{ resource_group }}"
+        create_option: empty
+        disk_size_gb: 50
+        os_type: windows
+        storage_account_type: Standard_LRS
+        managed_by: "{{ item.name }}"
+        state: present
+      with_items: "{{ windows_servers }}"
+      register: windows_mandisk_result
+      tags: 
+        - 6
+
+    - debug:
+        msg: "Windows Managed Disks are created: {{ windows_mandisk_result }}"
+
+      
+    - name: Create managed linux system disk from page blob
+      azure_rm_manageddisk:
+        name: "{{ item.osmanageddiskname }}"
+        resource_group:  "{{ resource_group }}"
+        create_option: empty
+        disk_size_gb: 50
+        os_type: linux
+        storage_account_type: Standard_LRS
+        managed_by: "{{ item.name }}"
+        state: present
+      with_items: "{{ linux_servers }}"
+      register: linux_mandisk_result
+      tags: 
+        - 7
+
+    - debug:
+        msg: "Linux Managed Disks are created: {{ linux_mandisk_result }}"
 
